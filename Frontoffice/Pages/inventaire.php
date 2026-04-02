@@ -1,5 +1,7 @@
 <?php 
 session_start();
+require_once(__DIR__ . '/../fonciton/fonctions.php');
+require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -82,92 +84,25 @@ session_start();
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td class="td-product"><img src="https://images.unsplash.com/photo-1570913149827-d2ac84ab3f9a?w=80&h=80&fit=crop" alt="Pommes"><span>Pommes</span></td>
-            <td class="td-code">111111111</td>
-            <td class="td-desc">…</td>
-            <td class="td-price">2.50 €</td>
-            <td>45</td>
-            <td><span class="badge badge-stock">En stock</span></td>
-            <td class="td-actions">
-              <a href="modifier-produit.php" class="btn-icon edit" title="Modifier"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></a>
-              <button class="btn-icon delete" title="Supprimer"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6m4-6v6"/><path d="M9 6V4h6v2"/></svg></button>
-            </td>
-          </tr>
-          <tr>
-            <td class="td-product"><img src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=80&h=80&fit=crop" alt="Bananes"><span>Bananes</span></td>
-            <td class="td-code">222222222</td>
-            <td class="td-desc">…</td>
-            <td class="td-price">1.80 €</td>
-            <td>75</td>
-            <td><span class="badge badge-stock">En stock</span></td>
-            <td class="td-actions">
-              <a href="modifier-produit.php" class="btn-icon edit" title="Modifier"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></a>
-              <button class="btn-icon delete" title="Supprimer"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6m4-6v6"/><path d="M9 6V4h6v2"/></svg></button>
-            </td>
-          </tr>
-          <tr>
-            <td class="td-product"><img src="https://images.unsplash.com/photo-1547514701-42782101795e?w=80&h=80&fit=crop" alt="Oranges"><span>Oranges</span></td>
-            <td class="td-code">333333333</td>
-            <td class="td-desc">…</td>
-            <td class="td-price">3.00 €</td>
-            <td>40</td>
-            <td><span class="badge badge-stock">En stock</span></td>
-            <td class="td-actions">
-              <a href="modifier-produit.php" class="btn-icon edit" title="Modifier"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></a>
-              <button class="btn-icon delete" title="Supprimer"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6m4-6v6"/><path d="M9 6V4h6v2"/></svg></button>
-            </td>
-          </tr>
-          <tr>
-            <td class="td-product"><img src="https://images.unsplash.com/photo-1607305387299-a3d9611cd469?w=80&h=80&fit=crop" alt="Tomates"><span>Tomates</span></td>
-            <td class="td-code">444444444</td>
-            <td class="td-desc">…</td>
-            <td class="td-price">2.20 €</td>
-            <td>8</td>
-            <td><span class="badge badge-faible">Stock faible</span></td>
-            <td class="td-actions">
-              <a href="modifier-produit.php" class="btn-icon edit" title="Modifier"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></a>
-              <button class="btn-icon delete" title="Supprimer"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6m4-6v6"/><path d="M9 6V4h6v2"/></svg></button>
-            </td>
-          </tr>
-          <tr>
-            <td class="td-product"><img src="https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=80&h=80&fit=crop" alt="Carottes"><span>Carottes</span></td>
-            <td class="td-code">555555555</td>
-            <td class="td-desc">…</td>
-            <td class="td-price">1.50 €</td>
-            <td>60</td>
-            <td><span class="badge badge-stock">En stock</span></td>
-            <td class="td-actions">
-              <a href="modifier-produit.php" class="btn-icon edit" title="Modifier"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></a>
-              <button class="btn-icon delete" title="Supprimer"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6m4-6v6"/><path d="M9 6V4h6v2"/></svg></button>
-            </td>
-          </tr>
-          <tr>
-            <td class="td-product"><img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=80&h=80&fit=crop" alt="Pain"><span>Pain</span></td>
-            <td class="td-code">666666666</td>
-            <td class="td-desc">…</td>
-            <td class="td-price">1.20 €</td>
-            <td>30</td>
-            <td><span class="badge badge-stock">En stock</span></td>
-            <td class="td-actions">
-              <a href="modifier-produit.php" class="btn-icon edit" title="Modifier"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></a>
-              <button class="btn-icon delete" title="Supprimer"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6m4-6v6"/><path d="M9 6V4h6v2"/></svg></button>
-            </td>
-          </tr>
-          <tr>
-            <td class="td-product"><img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=80&h=80&fit=crop" alt="Croissant"><span>Croissant</span></td>
-            <td class="td-code">777777777</td>
-            <td class="td-desc">…</td>
-            <td class="td-price">1.50 €</td>
-            <td>0</td>
-            <td><span class="badge badge-rupture">Rupture</span></td>
-            <td class="td-actions">
-              <a href="modifier-produit.php" class="btn-icon edit" title="Modifier"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></a>
-              <button class="btn-icon delete" title="Supprimer"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6m4-6v6"/><path d="M9 6V4h6v2"/></svg></button>
-            </td>
-          </tr>
-        </tbody>
+        <?php foreach ($listeProduit as $produit) {?>
+          <tbody>
+            <tr>
+              <td class="td-product"><img src="https://images.unsplash.com/photo-1570913149827-d2ac84ab3f9a?w=80&h=80&fit=crop" alt="Pommes"><span><?php echo $produit['Nom_produit'] ?></span></td>
+              <td class="td-code"><?php echo $produit['Code_barre'] ?></td>
+              <td class="td-desc"><?php echo $produit['Description'] ?></td>
+              <td class="td-price"><?php echo $produit['Prix'].' €' ?></td>
+              <td><?php echo $produit['Stock'] ?></td>
+              <td><span class="badge badge-stock">En stock</span></td>
+              <td class="td-actions">
+                <a href="modifier-produit.php" class="btn-icon edit" title="Modifier"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></a>
+                <form action="suppression_produit.php" method="post">
+                  <input type="hidden" name="id_produit" value="<?php echo $produit['Id']?>">
+                  <button type="submit" class="btn-icon delete" title="Supprimer"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6m4-6v6"/><path d="M9 6V4h6v2"/></svg></button>
+                </form>
+              </td>
+            </tr>
+          </tbody>
+        <?php  } ?>
       </table>
     </div>
 

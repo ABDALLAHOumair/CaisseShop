@@ -1,5 +1,7 @@
 <?php 
 session_start();
+require_once(__DIR__ . '/../fonciton/fonctions.php');
+require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -65,92 +67,14 @@ session_start();
     </div>
 
     <div class="product-grid">
-
-      <div class="product-card">
-        <div class="product-img"><img src="https://images.unsplash.com/photo-1570913149827-d2ac84ab3f9a?w=200&h=200&fit=crop" alt="Pommes"></div>
-        <p class="product-name">Pommes</p>
-        <p class="product-price">2.50 €</p>
-        <p class="product-stock">Stock: 45</p>
-      </div>
-
-      <div class="product-card">
-        <div class="product-img"><img src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=200&h=200&fit=crop" alt="Bananes"></div>
-        <p class="product-name">Bananes</p>
-        <p class="product-price">1.80 €</p>
-        <p class="product-stock">Stock: 75</p>
-      </div>
-
-      <div class="product-card">
-        <div class="product-img"><img src="https://images.unsplash.com/photo-1547514701-42782101795e?w=200&h=200&fit=crop" alt="Oranges"></div>
-        <p class="product-name">Oranges</p>
-        <p class="product-price">3.00 €</p>
-        <p class="product-stock">Stock: 40</p>
-      </div>
-
-      <div class="product-card">
-        <div class="product-img"><img src="https://images.unsplash.com/photo-1607305387299-a3d9611cd469?w=200&h=200&fit=crop" alt="Tomates"></div>
-        <p class="product-name">Tomates</p>
-        <p class="product-price">2.20 €</p>
-        <p class="product-stock">Stock: 8</p>
-      </div>
-
-      <div class="product-card">
-        <div class="product-img"><img src="https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=200&h=200&fit=crop" alt="Carottes"></div>
-        <p class="product-name">Carottes</p>
-        <p class="product-price">1.50 €</p>
-        <p class="product-stock">Stock: 60</p>
-      </div>
-
-      <div class="product-card">
-        <div class="product-img"><img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=200&h=200&fit=crop" alt="Pain"></div>
-        <p class="product-name">Pain</p>
-        <p class="product-price">1.20 €</p>
-        <p class="product-stock">Stock: 30</p>
-      </div>
-
-      <div class="product-card out-of-stock">
-        <span class="out-badge">Rupture</span>
-        <div class="product-img"><img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=200&h=200&fit=crop" alt="Croissant"></div>
-        <p class="product-name">Croissant</p>
-        <p class="product-price">1.50 €</p>
-        <p class="product-stock stock-zero">Stock: 0</p>
-      </div>
-
-      <div class="product-card">
-        <div class="product-img"><img src="https://images.unsplash.com/photo-1608270586620-248524c67de9?w=200&h=200&fit=crop" alt="Coca-Cola"></div>
-        <p class="product-name">Coca-Cola</p>
-        <p class="product-price">1.80 €</p>
-        <p class="product-stock">Stock: 100</p>
-      </div>
-
-      <div class="product-card">
-        <div class="product-img"><img src="https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=200&h=200&fit=crop" alt="Eau"></div>
-        <p class="product-name">Eau</p>
-        <p class="product-price">0.80 €</p>
-        <p class="product-stock">Stock: 120</p>
-      </div>
-
-      <div class="product-card">
-        <div class="product-img"><img src="https://images.unsplash.com/photo-1613478223719-2ab802602423?w=200&h=200&fit=crop" alt="Jus d'orange"></div>
-        <p class="product-name">Jus d'orange</p>
-        <p class="product-price">2.10 €</p>
-        <p class="product-stock">Stock: 22</p>
-      </div>
-
-      <div class="product-card">
-        <div class="product-img"><img src="https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=200&h=200&fit=crop" alt="Chips"></div>
-        <p class="product-name">Chips</p>
-        <p class="product-price">1.60 €</p>
-        <p class="product-stock">Stock: 54</p>
-      </div>
-
-      <div class="product-card">
-        <div class="product-img"><img src="https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=200&h=200&fit=crop" alt="Chocolat"></div>
-        <p class="product-name">Chocolat</p>
-        <p class="product-price">2.40 €</p>
-        <p class="product-stock">Stock: 36</p>
-      </div>
-
+      <?php foreach ($listeProduit as $produit) {?>
+        <div class="product-card">
+          <div class="product-img"><img src="https://images.unsplash.com/photo-1570913149827-d2ac84ab3f9a?w=200&h=200&fit=crop" alt="Pommes"></div>
+          <p class="product-name"><?php echo $produit['Nom_produit'] ?></p>
+          <p class="product-price"><?php echo $produit['Prix'].' €' ?></p>
+          <p class="product-stock">Stock: <?php echo $produit['Stock'] ?></p>
+        </div>
+      <?php  } ?>
     </div>
   </main>
 
