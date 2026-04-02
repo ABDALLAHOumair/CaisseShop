@@ -1,0 +1,298 @@
+/* ============================================
+   CaisseShop — Détail de vente
+   detail-vente.css
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  --orange:       #F97316;
+  --orange-dark:  #EA6A0A;
+  --green:        #34D399;
+  --green-dark:   #059669;
+  --red:          #EF4444;
+  --bg-app:       #F0F1F5;
+  --bg-sidebar:   #FFFFFF;
+  --bg-main:      #F4F5F8;
+  --bg-card:      #FFFFFF;
+  --text-primary: #1A1A2E;
+  --text-secondary:#6B7280;
+  --text-muted:   #9CA3AF;
+  --border:       #E5E7EB;
+  --sidebar-w:    170px;
+  --font:         'DM Sans', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg-app);
+  color: var(--text-primary);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+a      { text-decoration: none; color: inherit; }
+button { font-family: var(--font); cursor: pointer; border: none; background: none; }
+
+/* ── Layout ── */
+.app {
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  min-height: 100vh;
+}
+
+/* ════════════════════════════
+   SIDEBAR
+════════════════════════════ */
+.sidebar {
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.sidebar-logo {
+  padding: 18px 16px 22px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sidebar-logo img {
+  width: 100%;
+  max-width: 130px;
+  height: auto;
+  object-fit: contain;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 14px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: background .15s, color .15s;
+}
+
+.nav-item:hover  { background: var(--bg-main); color: var(--text-primary); }
+.nav-item.active { background: var(--orange); color: #fff; }
+.nav-item svg    { width: 18px; height: 18px; flex-shrink: 0; }
+
+.sidebar-bottom {
+  padding: 10px 10px 18px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btn-logout {
+  display: block;
+  text-align: center;
+  background: var(--red);
+  color: #fff;
+  border-radius: 10px;
+  padding: 9px 10px;
+  font-size: 13px;
+  font-weight: 700;
+  transition: opacity .15s;
+}
+.btn-logout:hover { opacity: .88; }
+
+/* ════════════════════════════
+   MAIN
+════════════════════════════ */
+.main {
+  padding: 20px 0 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+}
+
+/* ── Flèche retour ── */
+.btn-back {
+  align-self: flex-start;
+  margin-left: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  transition: background .15s;
+}
+.btn-back:hover { background: var(--border); }
+.btn-back svg   { width: 20px; height: 20px; }
+
+/* ── En-tête ── */
+.page-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.page-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -.3px;
+  margin-bottom: 4px;
+}
+
+.page-subtitle {
+  font-size: 13.5px;
+  color: var(--orange);
+}
+
+/* ════════════════════════════
+   TICKET
+════════════════════════════ */
+.ticket {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 28px 36px 24px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.05);
+}
+
+/* Titre du ticket */
+.ticket-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: center;
+  margin-bottom: 20px;
+  letter-spacing: -.2px;
+}
+
+/* Méta (date + caissière) */
+.ticket-meta {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.ticket-meta p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* Séparateur */
+.ticket-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 0 -36px 20px;
+}
+
+/* Lignes articles */
+.ticket-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.ticket-line {
+  display: flex;
+  align-items: center;
+}
+
+.line-name {
+  flex: 1;
+  font-size: 14px;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.line-qty {
+  font-size: 14px;
+  color: var(--text-secondary);
+  width: 60px;
+  text-align: center;
+}
+
+.line-price {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  width: 70px;
+  text-align: right;
+}
+
+/* Total */
+.ticket-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 4px;
+}
+
+.total-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  letter-spacing: .5px;
+  text-transform: uppercase;
+}
+
+.total-amount {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: -.5px;
+}
+
+/* ── Bouton imprimer ── */
+.btn-print {
+  margin-top: 16px;
+  width: 100%;
+  max-width: 480px;
+  height: 50px;
+  background: var(--green);
+  color: #fff;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .2px;
+  box-shadow: 0 4px 14px rgba(52,211,153,.35);
+  transition: background .15s, transform .1s;
+}
+
+.btn-print:hover {
+  background: var(--green-dark);
+  transform: translateY(-1px);
+}
+
+.btn-print:active { transform: translateY(0); }
+
+/* ── Impression ── */
+@media print {
+  .sidebar, .btn-back, .page-header, .btn-print { display: none; }
+  .app { display: block; }
+  .main { padding: 0; align-items: flex-start; }
+  .ticket {
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    max-width: 100%;
+    padding: 16px;
+  }
+}
