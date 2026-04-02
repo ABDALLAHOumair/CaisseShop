@@ -1,36 +1,24 @@
-/* ============================================
-   CaisseShop — Point de Vente
-   point-de-vente.css
-   ============================================ */
-
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
 
-/* ── Variables ── */
 :root {
-  --orange:        #F97316;
-  --orange-dark:   #EA6A0A;
-  --orange-pale:   #FFF7ED;
-  --orange-light:  #FED7AA;
-  --red:           #EF4444;
-  --bg-app:        #F0F1F5;
-  --bg-sidebar:    #FFFFFF;
-  --bg-main:       #F4F5F8;
-  --bg-card:       #FFFFFF;
-  --text-primary:  #1A1A2E;
+  --orange:       #F97316;
+  --orange-dark:  #EA6A0A;
+  --orange-light: #FED7AA;
+  --red:          #EF4444;
+  --bg-app:       #F0F1F5;
+  --bg-sidebar:   #FFFFFF;
+  --bg-main:      #F4F5F8;
+  --bg-card:      #FFFFFF;
+  --text-primary: #1A1A2E;
   --text-secondary:#6B7280;
-  --text-muted:    #9CA3AF;
-  --border:        #E5E7EB;
-  --sidebar-w:     160px;
-  --receipt-w:     280px;
-  --font:          'DM Sans', sans-serif;
+  --text-muted:   #9CA3AF;
+  --border:       #E5E7EB;
+  --sidebar-w:    160px;
+  --receipt-w:    280px;
+  --font:         'DM Sans', sans-serif;
 }
 
-/* ── Reset ── */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: var(--font);
@@ -52,9 +40,7 @@ input  { font-family: var(--font); border: none; outline: none; background: none
   height: 100vh;
 }
 
-/* ════════════════════════════
-   SIDEBAR
-════════════════════════════ */
+/* ── Sidebar ── */
 .sidebar {
   background: var(--bg-sidebar);
   border-right: 1px solid var(--border);
@@ -120,9 +106,7 @@ input  { font-family: var(--font); border: none; outline: none; background: none
 }
 .btn-logout:hover { opacity: .88; }
 
-/* ════════════════════════════
-   MAIN
-════════════════════════════ */
+/* ── Main ── */
 .main {
   display: flex;
   flex-direction: column;
@@ -165,11 +149,13 @@ input  { font-family: var(--font); border: none; outline: none; background: none
   box-shadow: 0 0 0 3px rgba(249,115,22,.1);
 }
 
-.search-box svg,
-.scanner-box svg { width: 15px; height: 15px; color: var(--text-muted); flex-shrink: 0; }
+.search-box svg, .scanner-box svg {
+  width: 15px; height: 15px; color: var(--text-muted); flex-shrink: 0;
+}
 
-.search-box input,
-.scanner-box input { flex: 1; font-size: 13px; color: var(--text-primary); }
+.search-box input, .scanner-box input {
+  flex: 1; font-size: 13px; color: var(--text-primary);
+}
 
 .search-box input::placeholder,
 .scanner-box input::placeholder { color: var(--text-muted); }
@@ -189,7 +175,11 @@ input  { font-family: var(--font); border: none; outline: none; background: none
 .product-grid::-webkit-scrollbar-track { background: transparent; }
 .product-grid::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
 
-/* ── Carte produit ── */
+/* ════════════════════════════
+   CARTE PRODUIT
+   Structure : carte flex-column centrée
+   image fixe 80×80 + textes dessous
+════════════════════════════ */
 .product-card {
   background: var(--bg-card);
   border: 1.5px solid var(--border);
@@ -198,12 +188,11 @@ input  { font-family: var(--font); border: none; outline: none; background: none
   cursor: pointer;
   position: relative;
 
-  /* Colonne centrée — image puis textes directement */
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 4px;
+  gap: 3px;
 
   transition: transform .15s, box-shadow .15s, border-color .15s;
 }
@@ -218,21 +207,23 @@ input  { font-family: var(--font); border: none; outline: none; background: none
   opacity: .55;
   cursor: not-allowed;
 }
+
 .product-card.out-of-stock:hover {
   transform: none;
   box-shadow: none;
   border-color: var(--border);
 }
 
-/* ── Image : carré fixe, coins arrondis ── */
+/* Image : taille fixe, ne peut PAS grandir */
 .product-img {
   width: 80px;
   height: 80px;
+  min-height: 80px;   /* empêche la compression */
+  max-height: 80px;   /* empêche l'expansion    */
   border-radius: 12px;
   overflow: hidden;
-  flex-shrink: 0;
-  margin-bottom: 6px;
   background: #F3F4F6;
+  margin-bottom: 8px;
 }
 
 .product-img img {
@@ -247,7 +238,7 @@ input  { font-family: var(--font); border: none; outline: none; background: none
   transform: scale(1.06);
 }
 
-/* ── Textes directement dans .product-card ── */
+/* Textes — enfants directs de .product-card */
 .product-name {
   font-size: 13px;
   font-weight: 600;
@@ -288,9 +279,7 @@ input  { font-family: var(--font); border: none; outline: none; background: none
   border-radius: 999px;
 }
 
-/* ════════════════════════════
-   TICKET DE CAISSE
-════════════════════════════ */
+/* ── Ticket de caisse ── */
 .receipt {
   background: var(--bg-card);
   border-left: 1px solid var(--border);

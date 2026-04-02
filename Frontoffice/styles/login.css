@@ -57,11 +57,11 @@ body {
 .logo-wrap {
   display: flex;
   justify-content: center;
-  margin-bottom: 10px;
+  margin-bottom: 36px;
 }
 
 .logo-wrap img {
-  height: 150px;
+  height: 68px;
   width: auto;
   object-fit: contain;
 }
