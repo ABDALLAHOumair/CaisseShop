@@ -1,5 +1,7 @@
 <?php 
 session_start();
+require_once(__DIR__ . '/../fonciton/fonctions.php');
+require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -91,61 +93,34 @@ session_start();
 
     <!-- Liste des ventes -->
     <div class="ventes-list">
-
-      <a href="detail-vente.php" class="vente-card">
-        <div class="vente-icon">
-          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        </div>
-        <div class="vente-info">
-          <div class="vente-top">
-            <span class="vente-id">Vente #f5a1a88e</span>
-            <span class="vente-badge">1 article</span>
+      <?php for ($i=0; $i < count($listeVente); $i++) { ?>
+        <a href="detail-vente.php" class="vente-card">
+          <div class="vente-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
           </div>
-          <div class="vente-meta">
-            <span>
-              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-              20 mars 2026 &bull; 08:21
-            </span>
-            <span>
-              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-              Espèces
-            </span>
+          <div class="vente-info">
+            <div class="vente-top">
+              <span class="vente-id">Vente <?php echo $listeVente[$i]['Id'] ?></span>
+              <span class="vente-badge"><?php echo $vente['Id'] ?></span>
+            </div>
+            <div class="vente-meta">
+              <span>
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                20 mars 2026 &bull; 08:21
+              </span>
+              <span>
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                Espèces
+              </span>
+            </div>
           </div>
-        </div>
-        <div class="vente-montant">
-          <p class="vente-total">7.50 €</p>
-          <p class="vente-rendu">Rendu: 12.50 €</p>
-        </div>
-      </div>
-
-      <a href="detail-vente.php" class="vente-card">
-        <div class="vente-icon">
-          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        </div>
-        <div class="vente-info">
-          <div class="vente-top">
-            <span class="vente-id">Vente #df496976</span>
-            <span class="vente-badge">1 article</span>
+          <div class="vente-montant">
+            <p class="vente-total">7.50 €</p>
+            <p class="vente-rendu">Rendu: 12.50 €</p>
           </div>
-          <div class="vente-meta">
-            <span>
-              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-              20 mars 2026 &bull; 08:20
-            </span>
-            <span>
-              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-              Espèces
-            </span>
-          </div>
-        </div>
-        <div class="vente-montant">
-          <p class="vente-total">5.00 €</p>
-          <p class="vente-rendu">Rendu: 5.00 €</p>
-        </div>
-      </div>
-
+        </a>
+      <?php }?>
     </div>
-
   </main>
 </div>
 
