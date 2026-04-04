@@ -1,3 +1,8 @@
+<?php 
+session_start();
+require_once(__DIR__ . '/../fonciton/fonctions.php');
+require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -67,49 +72,52 @@
     <div class="ticket">
 
       <h2 class="ticket-title">Ticket de Caisse</h2>
-
+      <?php
+      $selectPanier='SELECT vt.Id, pr.Nom_produit, pa.Quantite, pr.Prix FROM paniers pa
+      JOIN ventes vt ON pa.Id_vente = vt.Id
+      JOIN produits pr ON pa.Id_produit = pr.Id
+      WHERE pa.Id_vente=:Id_vente';
+      $selection_Panier=$mysqlClient->prepare($selectPanier);
+      $selection_Panier->execute([
+          'Id_vente' => $_GET['id_vente'],
+          ]);
+      $listePanier=$selection_Panier->fetchAll();
+      
+      //Requête select des ventes
+      $selectVente='SELECT * FROM ventes WHERE Id=:Id';
+      $selection_Vente=$mysqlClient->prepare($selectVente);
+      $selection_Vente->execute([
+          'Id' => $_GET['id_vente'],
+          ]);
+      $listeVente=$selection_Vente->fetchAll();
+      ?>
       <div class="ticket-meta">
-        <p>Date : 20/02/206</p>
-        <p>Caissiée : Addel harr</p>
+        <p>Date : <?php echo $listeVente[0]['Date'] ?></p>
+        <p>Caissiée : <?php echo $_SESSION['LOGGED_USER']['nom'].' '.$_SESSION['LOGGED_USER']['prenom']?></p>
       </div>
 
       <div class="ticket-divider"></div>
 
-      <div class="ticket-lines">
+        
+      <?php for ($i=0; $i < count($listePanier); $i++) { ?>
 
-        <div class="ticket-line">
-          <span class="line-name">Tomates</span>
-          <span class="line-qty">x3</span>
-          <span class="line-price">4.40 €</span>
+        <div class="ticket-lines">
+
+          <div class="ticket-line">
+            <span class="line-name"><?php echo $listePanier[$i]['Nom_produit'] ?></span>
+            <span class="line-qty">x<?php echo $listePanier[$i]['Quantite'] ?></span>
+            <span class="line-price"><?php echo $listePanier[$i]['Prix'] ?> €</span>
+          </div>
+
+
         </div>
 
-        <div class="ticket-line">
-          <span class="line-name">Oranges</span>
-          <span class="line-qty">x3</span>
-          <span class="line-price">6.00 €</span>
+        <div class="ticket-divider"></div> 
+      <?php }?>
+        <div class="ticket-total">
+          <span class="total-label">TOTAL</span>
+          <span class="total-amount"><?php echo $listeVente[0]['Total'] ?> €</span>
         </div>
-
-        <div class="ticket-line">
-          <span class="line-name">Bananes</span>
-          <span class="line-qty">x3</span>
-          <span class="line-price">3.60 €</span>
-        </div>
-
-        <div class="ticket-line">
-          <span class="line-name">Pain</span>
-          <span class="line-qty">x3</span>
-          <span class="line-price">1.20 €</span>
-        </div>
-
-      </div>
-
-      <div class="ticket-divider"></div>
-
-      <div class="ticket-total">
-        <span class="total-label">TOTAL</span>
-        <span class="total-amount">15.20€</span>
-      </div>
-
     </div>
 
     <!-- Bouton imprimer -->

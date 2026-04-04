@@ -20,14 +20,15 @@ $selection_Vente=$mysqlClient->prepare($selectVente);
 $selection_Vente->execute();
 $listeVente=$selection_Vente->fetchAll();
 
-// $selectVente='SELECT vt.Id, pr.Nom_produit FROM paniers pa
+// Requête select des paniers
+// $selectPanier='SELECT vt.Id, pr.Nom_produit FROM paniers pa
 // JOIN ventes vt ON pa.Id_vente = vt.Id
 // JOIN produits pr ON pa.Id_produit = pr.Id
 // WHERE pa.Id_vente=:Id_vente';
-// $selection_Vente=$mysqlClient->prepare($selectVente);
-// $selection_Vente->execute([
-//     'Id' => $_POST['id_postulation'],
+// $selection_Panier=$mysqlClient->prepare($selectPanier);
+// $selection_Panier->execute([
+//     'Id_vente' => $_POST['id_postulation'],
 //     ]);
-// $listeVente=$selection_Vente->fetchAll();
+// $listePanier=$selection_Panier->fetchAll();
 
 ?>
