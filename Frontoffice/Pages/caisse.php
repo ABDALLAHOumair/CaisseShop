@@ -48,6 +48,8 @@ if (isset($_POST['produits']) && isset($_POST['total'])) {
     die(redirectToUrl('point-de-vente.php'));
 }
 else {
-    
+    $_SESSION['ERROR_MESSAGE'] = 
+    "Payement refusé.";
+    die(redirectToUrl('point-de-vente.php'));
 }
 
