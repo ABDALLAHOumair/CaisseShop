@@ -66,32 +66,141 @@ require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
       </div>
     </div>
 
-    <div class="product-grid">
-      <?php foreach ($listeProduit as $produit) {?>
-        <div class="product-card">
-          <div class="product-img"><img src="https://images.unsplash.com/photo-1570913149827-d2ac84ab3f9a?w=200&h=200&fit=crop" alt="Pommes"></div>
-          <p class="product-name"><?php echo $produit['Nom_produit'] ?></p>
-          <p class="product-price"><?php echo $produit['Prix'].' €' ?></p>
-          <p class="product-stock">Stock: <?php echo $produit['Stock'] ?></p>
-        </div>
-      <?php  } ?>
+    <!-- Zone affichage des produit -->
+    <div class="product-grid" id="productGrid">
+
     </div>
   </main>
 
+  <!-- Zone ticket -->
   <aside class="receipt">
     <h2 class="receipt-title">Ticket de Caisse</h2>
-    <div class="receipt-items">
-      <p class="receipt-empty">Panier vide</p>
-    </div>
-    <div class="receipt-footer">
-      <div class="receipt-total">
-        <span class="total-label">TOTAL</span>
-        <span class="total-amount">0.00€</span>
+    
+    <form action="caisse.php" method="POST">
+      <div class="receipt-items" id="ticketList">
+        <p class="receipt-empty" id="receipt-empty">Panier vide</p>
       </div>
-      <button class="btn-pay" disabled>Payer</button>
-    </div>
+  
+      <div class="receipt-footer">
+        <div class="receipt-total">
+          <span class="total-label">TOTAL</span>
+          <span class="total-amount" id="ticketTotal">0.00€</span>
+        </div>
+        <button class="btn-pay" id="btn-pay">Payer</button>
+      </div>
+    </form>
   </aside>
 
 </div>
 </body>
+<script>
+  const produits = <?php echo json_encode($listeProduit); ?>;
+
+  let caisse = [];
+
+  function afficherCaisse() {
+      const ticketList = document.getElementById("ticketList");
+      ticketList.innerHTML = '';
+      let total = 0;
+      const totalCaisse = document.getElementById("ticketTotal");
+      
+      for (let index = 0; index < caisse.length; index++) {
+
+        total += (caisse[index].Prix * caisse[index].Quantite);
+
+        ticketList.innerHTML += `
+        <div class="ticket-item">     
+          <div>
+            <strong>${caisse[index].Nom}</strong><br>
+            <small>${caisse[index].Prix} € / unité</small>
+          </div>
+
+          <div class="qty-box">
+            <button type="button" onclick="diminuerQuantite(${caisse[index].Id})">-</button>
+            <span>${caisse[index].Quantite}</span>
+            <button type="button" onclick="augmenterQuantite(${caisse[index].Id})">+</button>
+            <button type="button" class="btn-remove" onclick="supprimerProduit(${caisse[index].Id})">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3 6 5 6 21 6"/>
+                <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+                <path d="M10 11v6m4-6v6"/>
+                <path d="M9 6V4h6v2"/>
+              </svg>
+            </button> 
+
+          <input type="hidden" name="produits[${index}][id]" value="${caisse[index].Id}">
+          <input type="hidden" name="produits[${index}][quantite]" value="${caisse[index].Quantite}">  
+          <input type="hidden" name="total" value="${total}">  
+        </div>
+        `;
+      }
+      totalCaisse.innerHTML = Math.trunc(total * 100) / 100 + " €";
+  }
+
+
+  function ajouterProduitDansCaisse(Id) {
+      let newProduct = produits.find(p => p.Id == Id);
+      let productExist = caisse.find(p => p.Id == Id);
+
+      if (productExist == null)
+          caisse.push({
+              Id: newProduct.Id,
+              Nom: newProduct.Nom_produit,
+              Prix: newProduct.Prix,
+              Quantite: 1
+          })
+      else {
+          productExist.Quantite++;
+      }
+      afficherCaisse();
+  }
+
+  function augmenterQuantite(Id) {
+      let produitDansCaisse = caisse.find(p => p.Id == Id);
+
+      produitDansCaisse.Quantite = produitDansCaisse.Quantite + 1;
+
+
+      afficherCaisse();
+
+  }
+
+
+  function supprimerProduit(Id) {
+      caisse = caisse.filter(p => p.Id != Id);
+      afficherCaisse();
+
+  }
+
+
+  function diminuerQuantite(Id) {
+      let produitDansCaisse = caisse.find(p => p.Id == Id);
+
+      produitDansCaisse.Quantite = produitDansCaisse.Quantite - 1;
+      if (produitDansCaisse.Quantite <= 0) {
+          caisse = caisse.filter(p => p.Id != Id);
+      }
+
+      afficherCaisse();
+  }
+
+  function afficherProduits() {
+      let productList = document.getElementById("productGrid");
+      productList.innerHTML = "";
+
+      for (let index = 0; index < produits.length; index++) {
+          productList.innerHTML = productList.innerHTML + `
+        <div class="product-card">
+          <div class="product-img"><img src="https://images.unsplash.com/photo-1570913149827-d2ac84ab3f9a?w=200&h=200&fit=crop" alt="Pommes"></div>
+          <p class="product-name">${produits[index].Nom_produit}</p>
+          <p class="product-price">${Number(produits[index].Prix)} €</p>
+          <p class="product-stock">Stock: ${produits[index].Stock}</p>
+          <button type="button" onclick="ajouterProduitDansCaisse(${produits[index].Id})">Ajouter</button>
+        </div>
+      `;
+      }
+  }
+
+  afficherProduits();
+</script>
 </html>
