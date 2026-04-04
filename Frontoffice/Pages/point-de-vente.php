@@ -92,6 +92,12 @@ require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
               unset($_SESSION['SUCCESS_MESSAGE']);
           } 
         ?>
+        <?php 
+          if (isset($_SESSION['ERROR_MESSAGE'])){
+              echo $_SESSION['ERROR_MESSAGE'];
+              unset($_SESSION['ERROR_MESSAGE']);
+          } 
+        ?>
         <button class="btn-pay" id="btn-pay">Payer</button>
       </div>
     </form>
