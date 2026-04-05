@@ -1,5 +1,15 @@
 <?php 
-session_start();
+session_start(); 
+require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
+// recupération des informations du produit visé 
+$selectProduitTarget='SELECT * FROM produits
+WHERE Id=:Id';
+$selection_produit=$mysqlClient->prepare($selectProduitTarget);
+$selection_produit->execute([
+    'Id' => $_GET['id_produit'],
+    ]);
+$ProduitTarget=$selection_produit->fetchAll(); 
+      
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -56,46 +66,50 @@ session_start();
     <div class="form-card">
       <h1 class="form-title">Modification</h1>
       <p class="form-subtitle">Modifiez les informations du produit.</p>
-      <div class="form-layout">
-        <div class="form-left">
-          <div class="form-group">
-            <label class="form-label">Nom du produit</label>
-            <input class="form-input" type="text" value="Banane">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Description</label>
-            <textarea class="form-textarea">Banane croquante importer de la savane.</textarea>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Référence / Code-barres</label>
-            <input class="form-input" type="text" id="ref-input" value="222222222">
-          </div>
-          <div class="form-row">
+      <div>
+        <form action="submit_modification" method="post" class="form-layout">
+          <div class="form-left">
             <div class="form-group">
-              <label class="form-label">Prix</label>
-              <input class="form-input" type="text" value="1.80 €">
+              <label class="form-label">Nom du produit</label>
+              <input class="form-input" type="text" name="nom_produit" value="<?php echo $ProduitTarget[0]['Nom_produit']; ?>">
             </div>
             <div class="form-group">
-              <label class="form-label">stock</label>
-              <input class="form-input" type="number" value="75">
+              <label class="form-label">Description</label>
+              <textarea class="form-textarea" name="description"><?php echo $ProduitTarget[0]['Description']; ?></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Référence / Code-barres</label>
+              <input class="form-input" type="text" id="ref-input" name="code_barre" value="<?php echo $ProduitTarget[0]['Code_barre']; ?>">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Prix</label>
+                <input class="form-input" type="text" name="prix" value="<?php echo $ProduitTarget[0]['Prix']; ?> €">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Stock</label>
+                <input class="form-input" type="number" name="stock" value="<?php echo $ProduitTarget[0]['Stock']; ?>">
+              </div>
+            </div>
+            <input type="hidden" name="id_produit" value="$_GET['id_produit']">
+            <button class="btn-save" type="submit">Enregistrer</button>
+          </div>
+
+          <div class="form-right">
+            <div class="img-box" id="img-box">
+              <img id="preview-img" src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=500&h=320&fit=crop" alt="Bananes">
+            </div>
+            <label class="btn-import">
+              importer une image
+              <input type="file" accept="image/*" onchange="previewImage(event)">
+            </label>
+            <div class="barcode-section">
+              <p class="form-label">Code-barres</p>
+              <div class="barcode-box" id="barcode-box"></div>
+              <button class="btn-generate" onclick="generateBarcode()">Générer un code barres</button>
             </div>
           </div>
-          <button class="btn-save">Enregistrer</button>
-        </div>
-        <div class="form-right">
-          <div class="img-box" id="img-box">
-            <img id="preview-img" src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=500&h=320&fit=crop" alt="Bananes">
-          </div>
-          <label class="btn-import">
-            importer une image
-            <input type="file" accept="image/*" onchange="previewImage(event)">
-          </label>
-          <div class="barcode-section">
-            <p class="form-label">Code-barres</p>
-            <div class="barcode-box" id="barcode-box"></div>
-            <button class="btn-generate" onclick="generateBarcode()">Générer un code barres</button>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
   </main>
