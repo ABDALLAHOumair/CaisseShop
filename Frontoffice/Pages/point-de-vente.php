@@ -55,10 +55,10 @@ require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
     <div class="main-header">
       <h1 class="page-title">Point de Vente</h1>
       <div class="toolbar">
-        <div class="search-box">
-          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="text" placeholder="Rechercher un produit...">
-        </div>
+        <form action="point-de-vente.php" method="post" class="search-box">
+          <button style="text-decoration: none" type="submit"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+          <input type="text" name="recherche" placeholder="Rechercher un produit..." value="<?php echo isset($_POST['recherche']) ? $_POST['recherche'] : ''; ?>">
+        </form>
         <div class="scanner-box">
           <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="9" x2="7" y2="15"/><line x1="10" y1="9" x2="10" y2="15"/><line x1="14" y1="9" x2="14" y2="15"/><line x1="17" y1="9" x2="17" y2="15"/></svg>
           <input type="text" placeholder="Scanner code-barres...">
@@ -80,7 +80,7 @@ require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
       <div class="receipt-items" id="ticketList">
         <p class="receipt-empty" id="receipt-empty">Panier vide</p>
       </div>
-  
+
       <div class="receipt-footer">
         <div class="receipt-total">
           <span class="total-label">TOTAL</span>

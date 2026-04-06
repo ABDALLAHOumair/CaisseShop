@@ -65,10 +65,10 @@ require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
     </div>
 
     <div class="search-wrap">
-      <div class="search-box">
-        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input type="text" placeholder="Rechercher par nom ou code-barres...">
-      </div>
+      <form action="inventaire.php" method="post" class="search-box">
+        <button style="text-decoration: none" type="submit"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+        <input type="text" name="recherche" placeholder="Rechercher par nom ou code-barres..." value="<?php echo isset($_POST['recherche']) ? $_POST['recherche'] : ''; ?>">
+      </form>
     </div>
 
     <div class="table-wrap">
