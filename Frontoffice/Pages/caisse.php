@@ -43,6 +43,27 @@ if (isset($_POST['produits']) && isset($_POST['total'])) {
         ]);
     }
 
+    // Diminution du stock
+    for ($i = 0; $i < count($produits); $i++) {
+
+        //Requête select du produit visé
+        $ProduitTarget='SELECT * FROM produits WHERE Id=:Id';
+        $selection_Produit_Target=$mysqlClient->prepare($ProduitTarget);
+        $selection_Produit_Target->execute([
+            'Id' => $_POST['produits'][$i]['id'],
+        ]);
+        $Produit=$selection_Produit_Target->fetchAll();
+
+        // Définition du nouveau stock
+        $newStock=$Produit[0]['Stock'] - $_POST['produits'][$i]['quantite'];
+
+        $UpdateProduit=$mysqlClient->prepare('UPDATE produits SET Stock=:Stock WHERE Id=:Id');
+        $UpdateProduit->execute([
+            'Id' => $_POST['produits'][$i]['id'],
+            'Stock' => $newStock,
+        ]); 
+    }
+
     $_SESSION['SUCCESS_MESSAGE'] = 
     "Payement effectué avec succé.";
     die(redirectToUrl('point-de-vente.php'));

@@ -86,6 +86,9 @@ require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
           <span class="total-label">TOTAL</span>
           <span class="total-amount" id="ticketTotal">0.00€</span>
         </div>
+        <button class="btn-pay" id="btn-pay">Payer</button>
+        </br>
+        </br>
         <?php 
           if (isset($_SESSION['SUCCESS_MESSAGE'])){
               echo $_SESSION['SUCCESS_MESSAGE'];
@@ -98,7 +101,6 @@ require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
               unset($_SESSION['ERROR_MESSAGE']);
           } 
         ?>
-        <button class="btn-pay" id="btn-pay">Payer</button>
       </div>
     </form>
   </aside>
