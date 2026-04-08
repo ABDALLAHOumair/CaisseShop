@@ -19,8 +19,8 @@ $ProduitTarget=$selection_produit->fetchAll();
   <title>Modification — CaisseShop</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/gh/dymosoftware/dymo-connect-framework/dymo.connect.framework.js"></script>
   <link rel="stylesheet" href="../styles/form-produit.css">
+  <script src="https://cdn.jsdelivr.net/gh/dymosoftware/dymo-connect-framework/dymo.connect.framework.js"></script>
 </head>
 <body>
 <div class="app">
@@ -63,7 +63,6 @@ $ProduitTarget=$selection_produit->fetchAll();
     <div class="form-card">
       <h1 class="form-title">Modification</h1>
       <p class="form-subtitle">Modifiez les informations du produit.</p>
-      <div>
         <form action="submit_modification.php" method="post" class="form-layout">
           <div class="form-left">
             <div class="form-group">
@@ -81,25 +80,15 @@ $ProduitTarget=$selection_produit->fetchAll();
             <div class="form-row">
               <div class="form-group">
                 <label class="form-label">Prix</label>
-                <input class="form-input" type="text" id="priceValue" name="prix" value="<?php echo $ProduitTarget[0]['Prix']; ?> €">
+                <input class="form-input" type="number" id="priceValue" name="prix" min="0" value="<?php echo $ProduitTarget[0]['Prix']; ?>">
               </div>
               <div class="form-group">
                 <label class="form-label">Stock</label>
-                <input class="form-input" type="number" name="stock" value="<?php echo $ProduitTarget[0]['Stock']; ?>">
+                <input class="form-input" type="number" name="stock" min="0" value="<?php echo $ProduitTarget[0]['Stock']; ?>">
               </div>
             </div>
-            <input type="hidden" name="id_produit" value="<?php echo $_GET['id_produit']?>">
-            <button class="btn-save" type="submit">Enregistrer</button>
-          </div>
-
-          <div class="form-right">
-            <div class="img-box" id="img-box">
-              <img id="preview-img" src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=500&h=320&fit=crop" alt="Bananes">
-            </div>
-            <label class="btn-import">
-              importer une image
-              <input type="file" accept="image/*" onchange="previewImage(event)">
-            </label>
+            
+            <!-- Zone aperçu code-barre -->
             <div class="barcode-section">
               <p class="form-label">Code-barres</p>
               <div id="statusBox" class="status">Initialisation de DYMO…</div>
@@ -114,14 +103,25 @@ $ProduitTarget=$selection_produit->fetchAll();
               <button class="btn-generate" id="previewBtn" type="button">Aperçu</button>
               <button class="btn-generate" id="printBtn" type="button">Imprimer</button>
             </div>
-              <div class="field">
-                <label for="printerSelect">Imprimante DYMO</label>
-                <select id="printerSelect"></select>
-              </div>
+            <div class="field">
+              <label for="printerSelect">Imprimante DYMO</label>
+              <select id="printerSelect"></select>
             </div>
+
+            <input type="hidden" name="id_produit" value="<?php echo $_GET['id_produit']?>">
+            <button class="btn-save" type="submit">Enregistrer</button>
+          </div>
+          
+          <div class="form-right">
+            <div class="img-box" id="img-box">
+              <img id="preview-img" src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=500&h=320&fit=crop" alt="Bananes">
+            </div>
+            <label class="btn-import">
+              importer une image
+              <input type="file" accept="image/*" onchange="previewImage(event)">
+            </label>
           </div>
         </form>
-      </div>
     </div>
   </main>
 </div>
@@ -268,7 +268,7 @@ function validateLabel() {
     function updateLabelValues(label) {
       const barcode = barcodeValue.value.trim();
       const name = productName.value.trim();
-      const price ='Prix : '+ priceValue.value.trim();
+      const price ='Prix : '+ priceValue.value.trim() + '€';
 
       if (!barcode) {
         throw new Error('Veuillez saisir une valeur pour BARCODE.');
