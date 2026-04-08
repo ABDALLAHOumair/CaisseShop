@@ -21,10 +21,6 @@ require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
       <img src="../images/logo-removebg-preview.png" alt="CaisseShop">
     </div>
     <nav class="sidebar-nav">
-      <a href="#" class="nav-item">
-        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-        Tableau de bord
-      </a>
       <a href="point-de-vente.php" class="nav-item">
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
         Point de vente

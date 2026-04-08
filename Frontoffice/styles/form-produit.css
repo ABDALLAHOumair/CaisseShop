@@ -349,6 +349,7 @@ input, textarea, select { font-family: var(--font); border: none; outline: none;
   overflow: hidden;
 }
 
+
 /* Bouton générer */
 .btn-generate {
   width: 100%;
