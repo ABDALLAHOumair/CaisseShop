@@ -1,5 +1,11 @@
 <?php 
 session_start();
+
+if (!$_SESSION['LOGGED_USER']) {
+    header("Location: login.php");
+exit;
+}
+
 require_once(__DIR__ . '/../fonciton/fonctions.php');
 require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
 ?>
@@ -209,6 +215,21 @@ require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
         </div>
       `;
       }
+  }
+
+  
+  function convertirScan(code){
+    return code.replaceAll("Shift", "") 
+    .replaceAll("à", "0")
+    .replaceAll("&", "1")
+    .replaceAll("é", "2")
+    .replaceAll("\"", "3")
+    .replaceAll("'", "4")
+    .replaceAll("(", "5")
+    .replaceAll("-", "6")
+    .replaceAll("è", "7")
+    .replaceAll("_", "8")
+    .replaceAll("ç", "9");
   }
 
   afficherProduits();

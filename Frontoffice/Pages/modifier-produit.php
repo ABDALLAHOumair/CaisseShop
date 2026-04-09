@@ -1,12 +1,18 @@
 <?php 
-session_start(); 
+session_start();
+
+if (!$_SESSION['LOGGED_USER']) {
+    header("Location: login.php");
+exit;
+}
+
 require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
 // recupération des informations du produit visé 
 $selectProduitTarget='SELECT * FROM produits
 WHERE Id=:Id';
 $selection_produit=$mysqlClient->prepare($selectProduitTarget);
 $selection_produit->execute([
-    'Id' => $_GET['id_produit'],
+    'Id' => $_POST['id_produit'],
     ]);
 $ProduitTarget=$selection_produit->fetchAll(); 
       
@@ -91,24 +97,24 @@ $ProduitTarget=$selection_produit->fetchAll();
             <!-- Zone aperçu code-barre -->
             <div class="barcode-section">
               <p class="form-label">Code-barres</p>
-              <div id="statusBox" class="status">Initialisation de DYMO…</div>
+              <div id="statusBox" class="status ok">Initialisation de DYMO…</div>
               <div class="barcode-box" id="previewZone">
                 <div class="muted">Aucun aperçu généré.</div>
               </div>
               <div class="field">
-                <label for="copies">Nombre d’exemplaires</label>
-                <input id="copies" type="number" min="1" max="100" step="1" value="1" />
+                <label class="form-label">Nombre d’exemplaires</label>
+                <input class="form-input" id="copies" type="number" min="1" max="100" step="1" value="1" />
               </div>
               <button class="btn-generate" id="refreshBtn" type="button">Actualiser les imprimantes</button>
               <button class="btn-generate" id="previewBtn" type="button">Aperçu</button>
               <button class="btn-generate" id="printBtn" type="button">Imprimer</button>
             </div>
             <div class="field">
-              <label for="printerSelect">Imprimante DYMO</label>
-              <select id="printerSelect"></select>
+              <label class="form-label" for="printerSelect">Imprimante DYMO</label>
+              <select class="form-input" id="printerSelect"></select>
             </div>
 
-            <input type="hidden" name="id_produit" value="<?php echo $_GET['id_produit']?>">
+            <input type="hidden" name="id_produit" value="<?php echo $_POST['id_produit']?>">
             <button class="btn-save" type="submit">Enregistrer</button>
           </div>
           
@@ -268,10 +274,10 @@ function validateLabel() {
     function updateLabelValues(label) {
       const barcode = barcodeValue.value.trim();
       const name = productName.value.trim();
-      const price ='Prix : '+ priceValue.value.trim() + '€';
+      const price ='Prix : '+ priceValue.value.trim() + ' €';
 
       if (!barcode) {
-        throw new Error('Veuillez saisir une valeur pour BARCODE.');
+        throw new Error('Veuillez saisir une valeur pour référence/code-barre.');
       }
 
       label.setObjectText('BARCODE', barcode);

@@ -25,6 +25,8 @@
   --border:       #E5E7EB;
   --sidebar-w:    170px;
   --font:         'DM Sans', sans-serif;
+  --danger: #b91c1c;
+  --ok: #166534;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -368,3 +370,25 @@ input, textarea, select { font-family: var(--font); border: none; outline: none;
 }
 
 .btn-generate:active { transform: translateY(0); }
+
+.status {
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  line-height: 1.5;
+  border: 1px solid var(--border);
+  background: #f9fafb;
+}
+
+.status.ok {
+  color: var(--ok);
+  border-color: #bbf7d0;
+  background: #f0fdf4;
+}
+
+.status.error {
+  color: var(--danger);
+  border-color: #fecaca;
+  background: #fef2f2;
+}
