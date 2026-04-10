@@ -86,7 +86,7 @@ $ProduitTarget=$selection_produit->fetchAll();
             <div class="form-row">
               <div class="form-group">
                 <label class="form-label">Prix</label>
-                <input class="form-input" type="number" id="priceValue" name="prix" min="0" value="<?php echo $ProduitTarget[0]['Prix']; ?>">
+                <input class="form-input" type="number" step=0.01 id="priceValue" name="prix" min="0" value="<?php echo $ProduitTarget[0]['Prix']; ?>">
               </div>
               <div class="form-group">
                 <label class="form-label">Stock</label>
@@ -124,7 +124,7 @@ $ProduitTarget=$selection_produit->fetchAll();
             </div>
             <label class="btn-import">
               importer une image
-              <input type="file" accept="image/*" onchange="previewImage(event)">
+              <input type="file" name="ImgProduit" accept="image/*" onchange="previewImage(event)">
             </label>
           </div>
         </form>

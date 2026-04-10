@@ -89,7 +89,7 @@ require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
         <?php foreach ($listeProduit as $produit) {?>
           <tbody>
             <tr>
-              <td class="td-product"><img src="https://images.unsplash.com/photo-1570913149827-d2ac84ab3f9a?w=80&h=80&fit=crop" alt="Pommes"><span><?php echo $produit['Nom_produit'] ?></span></td>
+              <td class="td-product"><img src="<?php echo $produit['ImgChemin'] ?>"><span><?php echo $produit['Nom_produit'] ?></span></td>
               <td class="td-code"><?php echo $produit['Code_barre'] ?></td>
               <td class="td-desc"><?php echo $produit['Description'] ?></td>
               <td class="td-price"><?php echo $produit['Prix'].' €' ?></td>

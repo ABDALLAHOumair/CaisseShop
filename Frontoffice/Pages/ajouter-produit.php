@@ -55,11 +55,11 @@ exit;
     <div class="form-card">
       <h1 class="form-title">Ajouter un produit</h1>
       <p class="form-subtitle">Ajouter les informations du produit.</p>
-      <form action="submit_ajout_produit.php" method="post" class="form-layout">
+      <form action="submit_ajout_produit.php" method="GET" enctype="multipart/form-data" class="form-layout">
           <div class="form-left">
             <div class="form-group">
               <label class="form-label">Nom du produit</label>
-              <input class="form-input" type="text" id="productName" name="nom_produit" value="">
+              <input class="form-input" type="text" id="productName" name="nom_produit">
             </div>
             <div class="form-group">
               <label class="form-label">Description</label>
@@ -67,16 +67,16 @@ exit;
             </div>
             <div class="form-group">
               <label class="form-label">Référence / Code-barres</label>
-              <input class="form-input" type="text" id="barcodeValue" name="code_barre" value="">
+              <input class="form-input" type="text" id="barcodeValue" name="code_barre">
             </div>
             <div class="form-row">
               <div class="form-group">
                 <label class="form-label">Prix</label>
-                <input class="form-input" type="number" id="priceValue" name="prix" min="0" value="">
+                <input class="form-input" type="number" step=0.01 id="priceValue" name="prix" min="0">
               </div>
               <div class="form-group">
                 <label class="form-label">Stock</label>
-                <input class="form-input" type="number" min="0" name="stock" value="">
+                <input class="form-input" type="number" min="0" name="stock">
               </div>
             </div>
             
@@ -88,16 +88,16 @@ exit;
                 <div class="muted">Aucun aperçu généré.</div>
               </div>
               <div class="field">
-                <label for="copies">Nombre d’exemplaires</label>
-                <input id="copies" type="number" min="1" max="100" step="1" value="1" />
+                <label class="form-label" for="copies">Nombre d’exemplaires</label>
+                <input class="form-input" id="copies" type="number" min="1" max="100" step="1" value="1" />
               </div>
               <button class="btn-generate" id="refreshBtn" type="button">Actualiser les imprimantes</button>
               <button class="btn-generate" id="previewBtn" type="button">Aperçu</button>
               <button class="btn-generate" id="printBtn" type="button">Imprimer</button>
             </div>
             <div class="field">
-              <label for="printerSelect">Imprimante DYMO</label>
-              <select id="printerSelect"></select>
+              <label class="form-label" for="printerSelect">Imprimante DYMO</label>
+              <select class="form-input" id="printerSelect"></select>
             </div>
             
             <button class="btn-save" type="submit">Enregistrer</button>
@@ -105,11 +105,11 @@ exit;
 
           <div class="form-right">
             <div class="img-box" id="img-box">
-              <img id="preview-img" src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=500&h=320&fit=crop" alt="Bananes">
+              <img id="preview-img">
             </div>
             <label class="btn-import">
               importer une image
-              <input type="file" accept="image/*" onchange="previewImage(event)">
+              <input type="file" name="ImgProduit" accept="image/*" onchange="previewImage(event)">
             </label>
           </div>
         </form> 
@@ -376,6 +376,22 @@ try {
   priceValue.addEventListener('input', renderPreview);
 
   initDymo();
+
+function previewImage(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const r = new FileReader();
+  r.onload = ev => {
+    const img = document.getElementById('preview-img');
+    const box = document.getElementById('img-box');
+    img.src = ev.target.result;
+    img.style.display = 'block';
+    if (box) box.classList.remove('img-box--empty');
+    const icon = document.querySelector('.img-placeholder-icon');
+    if (icon) icon.style.display = 'none';
+  };
+  r.readAsDataURL(file);
+}
 </script>
 </body>
 </html>
