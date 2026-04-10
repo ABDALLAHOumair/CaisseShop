@@ -61,10 +61,6 @@ require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
           <button style="text-decoration: none" type="submit"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
           <input type="text" name="recherche" placeholder="Rechercher un produit..." value="<?php echo isset($_POST['recherche']) ? $_POST['recherche'] : ''; ?>">
         </form>
-        <div class="scanner-box">
-          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="9" x2="7" y2="15"/><line x1="10" y1="9" x2="10" y2="15"/><line x1="14" y1="9" x2="14" y2="15"/><line x1="17" y1="9" x2="17" y2="15"/></svg>
-          <input type="text" placeholder="Scanner code-barres...">
-        </div>
       </div>
     </div>
 
@@ -171,6 +167,48 @@ require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
       afficherCaisse();
   }
 
+  let refProduit = "";
+  
+  document.addEventListener('keydown',(e) => {
+
+    if (e.key != 'Enter') {
+        refProduit+=e.key;
+        console.log("Brut :", refProduit);
+        console.log("Converti :", convertirScan(refProduit));
+    }
+
+    if (e.key == 'Enter') {
+
+      if (refProduit != "") {
+
+          const  recupIdProduit = produits.find(p => p.Code_barre == convertirScan(refProduit));
+          console.log("Objet trouvé :", recupIdProduit);
+          console.log("Id récupéré :", recupIdProduit?.Id);
+          if (recupIdProduit != null) {
+
+              ajouterProduitDansCaisse(recupIdProduit.Id);
+              refProduit = "";
+
+          }else{
+              alert("Le Code Barres est fausse");
+          }
+      }
+    }
+  })
+  function convertirScan(code){
+    return code.replaceAll("Shift", "") 
+    .replaceAll("à", "0")
+    .replaceAll("&", "1")
+    .replaceAll("é", "2")
+    .replaceAll("\"", "3")
+    .replaceAll("'", "4")
+    .replaceAll("(", "5")
+    .replaceAll("-", "6")
+    .replaceAll("è", "7")
+    .replaceAll("_", "8")
+    .replaceAll("ç", "9");
+  }
+
   function augmenterQuantite(Id) {
       let produitDansCaisse = caisse.find(p => p.Id == Id);
 
@@ -216,22 +254,6 @@ require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
       `;
       }
   }
-
-  
-  function convertirScan(code){
-    return code.replaceAll("Shift", "") 
-    .replaceAll("à", "0")
-    .replaceAll("&", "1")
-    .replaceAll("é", "2")
-    .replaceAll("\"", "3")
-    .replaceAll("'", "4")
-    .replaceAll("(", "5")
-    .replaceAll("-", "6")
-    .replaceAll("è", "7")
-    .replaceAll("_", "8")
-    .replaceAll("ç", "9");
-  }
-
   afficherProduits();
 </script>
 </html>
