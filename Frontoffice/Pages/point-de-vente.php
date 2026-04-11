@@ -173,8 +173,6 @@ require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
 
     if (e.key != 'Enter') {
         refProduit+=e.key;
-        console.log("Brut :", refProduit);
-        console.log("Converti :", convertirScan(refProduit));
     }
 
     if (e.key == 'Enter') {
@@ -182,8 +180,6 @@ require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
       if (refProduit != "") {
 
           const  recupIdProduit = produits.find(p => p.Code_barre == convertirScan(refProduit));
-          console.log("Objet trouvé :", recupIdProduit);
-          console.log("Id récupéré :", recupIdProduit?.Id);
           if (recupIdProduit != null) {
 
               ajouterProduitDansCaisse(recupIdProduit.Id);

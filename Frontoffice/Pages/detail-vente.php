@@ -75,9 +75,10 @@ require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
 
       <h2 class="ticket-title">Ticket de Caisse</h2>
       <?php
-      $selectPanier='SELECT vt.Id, pr.Nom_produit, pa.Quantite, pr.Prix FROM paniers pa
+      $selectPanier='SELECT vt.Id, us.Nom, us.Prenom, pr.Nom_produit, pa.Quantite, pr.Prix FROM paniers pa
       JOIN ventes vt ON pa.Id_vente = vt.Id
       JOIN produits pr ON pa.Id_produit = pr.Id
+      JOIN users us ON vt.Id_user = us.Id
       WHERE pa.Id_vente=:Id_vente';
       $selection_Panier=$mysqlClient->prepare($selectPanier);
       $selection_Panier->execute([
@@ -95,7 +96,7 @@ require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
       ?>
       <div class="ticket-meta">
         <p>Date : <?php echo $listeVente[0]['Date'] ?></p>
-        <p>Caissiée : <?php echo $_SESSION['LOGGED_USER']['nom'].' '.$_SESSION['LOGGED_USER']['prenom']?></p>
+        <p>Caissiée : <?php echo $listePanier[0]['Nom'].' '. $listePanier[0]['Prenom']?></p>
       </div>
 
       <div class="ticket-divider"></div>

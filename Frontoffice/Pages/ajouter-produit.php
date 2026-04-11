@@ -55,7 +55,7 @@ exit;
     <div class="form-card">
       <h1 class="form-title">Ajouter un produit</h1>
       <p class="form-subtitle">Ajouter les informations du produit.</p>
-      <form action="submit_ajout_produit.php" method="GET" enctype="multipart/form-data" class="form-layout">
+      <form action="submit_ajout_produit.php" method="POST" enctype="multipart/form-data" class="form-layout">
           <div class="form-left">
             <div class="form-group">
               <label class="form-label">Nom du produit</label>

@@ -14,7 +14,7 @@ if (isset($_POST['produits']) && isset($_POST['total'])) {
     $produits = $_POST['produits'];
 
     // Ajout dans la table ventes
-    $insertVente='INSERT INTO ventes (Id_user,  Total) VALUE(:Id_user, :Total)';
+    $insertVente='INSERT INTO ventes (Id_user, Total) VALUE(:Id_user, :Total)';
     $insertVente=$mysqlClient->prepare($insertVente);
     $insertVente->execute([
         'Id_user' => $_SESSION['LOGGED_USER']['user_id'],

@@ -69,7 +69,7 @@ $ProduitTarget=$selection_produit->fetchAll();
     <div class="form-card">
       <h1 class="form-title">Modification</h1>
       <p class="form-subtitle">Modifiez les informations du produit.</p>
-        <form action="submit_modification.php" method="post" class="form-layout">
+        <form action="submit_modification.php" method="POST" enctype="multipart/form-data" class="form-layout">
           <div class="form-left">
             <div class="form-group">
               <label class="form-label">Nom du produit</label>
@@ -120,7 +120,7 @@ $ProduitTarget=$selection_produit->fetchAll();
           
           <div class="form-right">
             <div class="img-box" id="img-box">
-              <img id="preview-img" src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=500&h=320&fit=crop" alt="Bananes">
+              <img id="preview-img">
             </div>
             <label class="btn-import">
               importer une image
@@ -391,6 +391,23 @@ function printLabel() {
     priceValue.addEventListener('input', renderPreview);
 
     initDymo();
+
+
+    function previewImage(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const r = new FileReader();
+      r.onload = ev => {
+        const img = document.getElementById('preview-img');
+        const box = document.getElementById('img-box');
+        img.src = ev.target.result;
+        img.style.display = 'block';
+        if (box) box.classList.remove('img-box--empty');
+        const icon = document.querySelector('.img-placeholder-icon');
+        if (icon) icon.style.display = 'none';
+      };
+      r.readAsDataURL(file);
+    }
   </script>
 </body>
 </html>

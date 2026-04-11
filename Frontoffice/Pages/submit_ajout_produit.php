@@ -8,14 +8,10 @@ exit;
 
 require_once(__DIR__ . '/../fonciton/fonctions.php');
 require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
-$postData = $_GET;
-echo $postData['nom_produit'];
-echo $postData['description'];
-echo $postData['code_barre'];
-echo $postData['prix'];
-echo $postData['stock'];
-echo $postData['ImgProduit'];
+$postData = $_POST;
 
+
+echo $postData['nom_produit'] .' ' . $postData['description'] .' ' .$postData['code_barre'] .' ' .$postData['prix'] .' ' .$postData['stock'] .' ' .$_POST['ImgProduit'];
 // if (isset($postData['nom_produit']) 
 //     && isset($postData['description']) 
 //     && isset($postData['code_barre']) 
@@ -30,14 +26,14 @@ echo $postData['ImgProduit'];
 //     && !empty($postData['ImgProduit'])) {
 
 
-    $target_dir ="imgUtilisateur/";
+    // $target_dir ="imgUtilisateur/";
     
-    $target_file = $target_dir . basename($_FILES["ImgProduit"]["name"]);
+    // $target_file = $target_dir . basename($_FILES["ImgProduit"]["name"]);
     
-    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+    // $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
 
-    move_uploaded_file($_FILES["ImgProduit"]["tmp_name"], $target_file);
+    // move_uploaded_file($_FILES["ImgProduit"]["tmp_name"], $target_file);
 
     // $uploadOk = 1;
     // $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -86,16 +82,16 @@ echo $postData['ImgProduit'];
     // }
 
 
-    $insertProduit='INSERT INTO produits(Nom_produit, Description, Prix, Code_barre, Stock, ImgChemin) VALUE(:Nom_produit, :Description, :Prix, :Code_barre, :Stock, :Img)';
-    $insertionProduit=$mysqlClient->prepare($insertProduit);
-    $insertionProduit->execute([
-        'Nom_produit' => $postData['nom_produit'],
-        'Description' => $postData['description'],
-        'Prix' => $postData['prix'],
-        'Code_barre' => $postData['code_barre'],
-        'Stock' => $postData['stock'],
-        'Img' =>  $target_file,
-    ]);
-   redirectToUrl('inventaire.php');
+//     $insertProduit='INSERT INTO produits(Nom_produit, Description, Prix, Code_barre, Stock, ImgChemin) VALUE(:Nom_produit, :Description, :Prix, :Code_barre, :Stock, :Img)';
+//     $insertionProduit=$mysqlClient->prepare($insertProduit);
+//     $insertionProduit->execute([
+//         'Nom_produit' => $postData['nom_produit'],
+//         'Description' => $postData['description'],
+//         'Prix' => $postData['prix'],
+//         'Code_barre' => $postData['code_barre'],
+//         'Stock' => $postData['stock'],
+//         'Img' =>  $target_file,
+//     ]);
+//    redirectToUrl('inventaire.php');
 // }
 ?>
