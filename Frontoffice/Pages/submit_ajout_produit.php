@@ -25,65 +25,82 @@ if (isset($postData['nom_produit'])
 
 
     $target_dir ="imgUtilisateur/";
-    
+
     $target_file = $target_dir . basename($_FILES["ImgProduit"]["name"]);
-    
-    $uploadOk = 1;
+
+    $uploadOk = 1;$uploadOk = 1;
 
     $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
+
+    move_uploaded_file($_FILES["ImgProduit"]["tmp_name"], $target_file);
     // vérifie si l'image est actuellement une image
     $check = getimagesize($_FILES["ImgProduit"]["tmp_name"]);
     if($check !== false) {
         echo "Le fichier est une image - " . $check["mime"] . ".";
         $uploadOk = 1;
     } else {
-        echo "Le fichier n'est une image.";
+        $_SESSION['ERROR_MESSAGE'] = 
+        "Une erreur c'est produite lors de la création du produit.";
         $uploadOk = 0;
+        die(redirectToUrl('ajouter-produit.php'));
         }
 
     // Vérifie si le ficher existe déjà
     if (file_exists($target_file)) {
-    echo "Desolé, le fichier existe déjà.";
-    $uploadOk = 0;
+        $_SESSION['ERROR_MESSAGE'] = 
+        "Une erreur c'est produite lors de la création du produit.";
+        $uploadOk = 0;
+        die(redirectToUrl('ajouter-produit.php'));
     }
 
     // Vérification de la taille du fichier
     if ($_FILES["ImgProduit"]["size"] > 500000) {
-    echo "Desolé, ton fichier est trop volumineux.";
-    $uploadOk = 0;
+        $_SESSION['ERROR_MESSAGE'] = 
+        "Une erreur c'est produite lors de la création du produit.";
+        $uploadOk = 0;
+        die(redirectToUrl('ajouter-produit.php'));
     }
 
     // Autorisation qu'à certain type fichier
     if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
     && $imageFileType != "webp" ) {
-    echo "Desolé, seulement les fichiers JPG, JPEG, PNG & WEBP sont autorisé.";
-    $uploadOk = 0;
+        $_SESSION['ERROR_MESSAGE'] = 
+        "Une erreur c'est produite lors de la création du produit.";
+        $uploadOk = 0;
+        die(redirectToUrl('ajouter-produit.php'));
     }
 
-    // Check if $uploadOk is set to 0 by an error
+    // Véirfie si $uploadOk est égale à 0 pour une erreur ou 1 sinon
     if ($uploadOk == 0) {
-    echo "Sorry, your file was not uploaded.";
-    // if everything is ok, try to upload file
-    } else {
-    if (move_uploaded_file($_FILES["ImgProduit"]["tmp_name"], $target_file)) {
-        echo "Le fichier ". htmlspecialchars( basename( $_FILES["ImgProduit"]["name"])). " has been uploaded.";
-    } else {
-        echo "Sorry, there was an error uploading your file.";
-    }
-    }
+        $_SESSION['ERROR_MESSAGE'] = 
+        "Une erreur c'est produite lors de la création du produit.";
+        die(redirectToUrl('ajouter-produit.php'));
 
-
-//     $insertProduit='INSERT INTO produits(Nom_produit, Description, Prix, Code_barre, Stock, ImgChemin) VALUE(:Nom_produit, :Description, :Prix, :Code_barre, :Stock, :Img)';
-//     $insertionProduit=$mysqlClient->prepare($insertProduit);
-//     $insertionProduit->execute([
-//         'Nom_produit' => $postData['nom_produit'],
-//         'Description' => $postData['description'],
-//         'Prix' => $postData['prix'],
-//         'Code_barre' => $postData['code_barre'],
-//         'Stock' => $postData['stock'],
-//         'Img' =>  $target_file,
-//     ]);
-//    redirectToUrl('inventaire.php');
+    // Si tout est ok upload l'image
+    } else {
+        if (move_uploaded_file($_FILES["ImgProduit"]["tmp_name"], $target_file)) {
+            $insertProduit='INSERT INTO produits(Nom_produit, Description, Prix, Code_barre, Stock, ImgChemin) VALUE(:Nom_produit, :Description, :Prix, :Code_barre, :Stock, :Img)';
+            $insertionProduit=$mysqlClient->prepare($insertProduit);
+            $insertionProduit->execute([
+                'Nom_produit' => $postData['nom_produit'],
+                'Description' => $postData['description'],
+                'Prix' => $postData['prix'],
+                'Code_barre' => $postData['code_barre'],
+                'Stock' => $postData['stock'],
+                'Img' =>  $target_file,
+            ]);
+            die(redirectToUrl('inventaire.php'));
+        } else {
+            $_SESSION['ERROR_MESSAGE'] = 
+            "Une erreur c'est produite lors de la création du produit.";
+            die(redirectToUrl('ajouter-produit.php'));
+        }
+    }
+}
+else {
+    $_SESSION['ERROR_MESSAGE'] = 
+    "Une erreur c'est produite lors de la création du produit.";
+    die(redirectToUrl('ajouter-produit.php'));
 }
 ?>

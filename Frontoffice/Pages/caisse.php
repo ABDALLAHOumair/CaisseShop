@@ -9,7 +9,7 @@ exit;
 require_once(__DIR__ . '/../fonciton/fonctions.php');
 require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
 
-if (isset($_POST['produits']) && isset($_POST['total'])) {
+if (isset($_POST['produits']) && isset($_POST['total']) && !empty($_POST['produits']) && !empty($_POST['total'])) {
     
     $produits = $_POST['produits'];
 
