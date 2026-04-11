@@ -120,7 +120,7 @@ $ProduitTarget=$selection_produit->fetchAll();
           
           <div class="form-right">
             <div class="img-box" id="img-box">
-              <img id="preview-img">
+              <img id="preview-img" src="<?php echo $ProduitTarget[0]['ImgChemin'] ?>">
             </div>
             <label class="btn-import">
               importer une image

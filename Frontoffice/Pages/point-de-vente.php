@@ -241,7 +241,7 @@ require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
       for (let index = 0; index < produits.length; index++) {
           productList.innerHTML = productList.innerHTML + `
         <div class="product-card">
-          <div class="product-img"><img src="https://images.unsplash.com/photo-1570913149827-d2ac84ab3f9a?w=200&h=200&fit=crop" alt="Pommes"></div>
+          <div class="product-img"><img src="${produits[index].ImgChemin}"></div>
           <p class="product-name">${produits[index].Nom_produit}</p>
           <p class="product-price">${Number(produits[index].Prix)} €</p>
           <p class="product-stock">Stock: ${produits[index].Stock}</p>

@@ -96,9 +96,10 @@ require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
     <!-- Liste des ventes -->
     <div class="ventes-list">
       <?php for ($i=0; $i < count($listeVente); $i++) { 
-        $selectPanier='SELECT vt.Id, pr.Nom_produit FROM paniers pa
+        $selectPanier='SELECT vt.Id, us.Nom, us.Prenom, pr.Nom_produit FROM paniers pa
         JOIN ventes vt ON pa.Id_vente = vt.Id
         JOIN produits pr ON pa.Id_produit = pr.Id
+        JOIN users us ON vt.Id_user = us.Id
         WHERE pa.Id_vente=:Id_vente';
         $selection_Panier=$mysqlClient->prepare($selectPanier);
         $selection_Panier->execute([
@@ -120,10 +121,6 @@ require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
                 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                 <?php echo $listeVente[$i]['Date'] ?>
               </span>
-              <span>
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-                Espèces
-              </span>
             </div>
           </div>
           <div class="vente-montant">
@@ -135,14 +132,6 @@ require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
   </main>
 </div>
 
-<script>
-  /* Onglets période */
-  document.querySelectorAll('.tab').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    });
-  });
-</script>
+
 </body>
 </html>
