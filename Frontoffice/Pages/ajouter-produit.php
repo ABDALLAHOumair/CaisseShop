@@ -53,14 +53,14 @@
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5m7-7-7 7 7 7"/></svg>
       </a>
       <div class="form-card">    
-        <?php if (isset($_SESSION['ERROR_MESSAGE'])){?>
+        <?php if (isset($_SESSION['ERROR_MESSAGE'])):?>
           <div class="status error">
             <?php 
             echo $_SESSION['ERROR_MESSAGE'];
             unset($_SESSION['ERROR_MESSAGE']);
             ?>
           </div>
-        <?php } ?>
+        <?php endif; ?>
 
         <h1 class="form-title">Ajouter un produit</h1>
         <p class="form-subtitle">Ajouter les informations du produit.</p>

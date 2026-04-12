@@ -72,7 +72,14 @@ require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
         <input type="text" name="recherche" placeholder="Rechercher par nom ou code-barres..." value="<?php echo isset($_POST['recherche']) ? $_POST['recherche'] : ''; ?>">
       </form>
     </div>
-
+    <?php if (isset($_SESSION['ERROR_MESSAGE'])):?>
+      <div class="error-box">
+        <?php 
+        echo $_SESSION['ERROR_MESSAGE'];
+        unset($_SESSION['ERROR_MESSAGE']);
+        ?>
+      </div>
+    <?php endif; ?>
     <div class="table-wrap">
       <table class="table">
         <thead>

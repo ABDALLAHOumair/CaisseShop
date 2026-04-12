@@ -322,3 +322,17 @@ input  { font-family: var(--font); border: none; outline: none; background: none
 
 .btn-icon.delete { color: var(--red); }
 .btn-icon.delete:hover { background: #FEF2F2; }
+
+.error-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  background: #fff1f0;
+  border: 0.5px solid #ffa39e;
+  border-left: 3px solid #cf1322;
+  border-radius: 4px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  max-width: 1580px;
+}
