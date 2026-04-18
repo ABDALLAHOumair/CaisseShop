@@ -96,10 +96,9 @@ require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
     <!-- Liste des ventes -->
     <div class="ventes-list">
       <?php for ($i=0; $i < count($listeVente); $i++) { 
-        $selectPanier='SELECT vt.Id, us.Nom, us.Prenom, pr.Nom_produit FROM paniers pa
+        $selectPanier='SELECT vt.Id, pr.Nom_produit FROM paniers pa
         JOIN ventes vt ON pa.Id_vente = vt.Id
         JOIN produits pr ON pa.Id_produit = pr.Id
-        JOIN users us ON vt.Id_user = us.Id
         WHERE pa.Id_vente=:Id_vente';
         $selection_Panier=$mysqlClient->prepare($selectPanier);
         $selection_Panier->execute([
