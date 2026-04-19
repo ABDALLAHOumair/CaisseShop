@@ -112,7 +112,7 @@ require_once(__DIR__ . '/../fonciton/ConnexionBDD.php');
           </div>
           <div class="vente-info">
             <div class="vente-top">
-              <span class="vente-id">Vente N°<?php echo $listeVente[$i]['Id'] ?></span>
+              <span class="vente-id">Vente N°<?php echo $i + 1 ?></span>
               <span class="vente-badge"><?php echo count($listePanier)?> Articles</span>
             </div>
             <div class="vente-meta">
