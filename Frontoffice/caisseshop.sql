@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : sam. 11 avr. 2026 à 16:39
+-- Généré le : mer. 22 avr. 2026 à 09:32
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -136,7 +136,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`Id`, `Nom`, `Prenom`, `Email`, `Password`) VALUES
-(1, 'Abdel', 'Paja', 'abdelpaja@gmail.com', 'azerty');
+(1, 'Abdel', 'Paja', 'abdelpaja@gmail.com', 'azerty'),
+(2, 'Utilisateur', '1', 'utilisateur@gmail.com', 'user123');
 
 -- --------------------------------------------------------
 
@@ -227,7 +228,7 @@ ALTER TABLE `produits`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `ventes`
