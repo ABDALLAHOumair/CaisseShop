@@ -52,7 +52,7 @@ session_start();
       ?>
 
       <div class="forgot">
-        <a href="#">Mot de passe oublié ?</a>
+        
       </div>
 
       <button type="submit" class="btn-submit">Se connecter</button>

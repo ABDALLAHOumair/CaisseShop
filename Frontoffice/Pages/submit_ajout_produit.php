@@ -58,7 +58,8 @@ if (isset($postData['nom_produit'])
     }
 
     // Insertion de l'image dans la BDD
-    $insertProduit = 'INSERT INTO produits(Nom_produit, Description, Prix, Code_barre, Stock, ImgChemin) VALUES(:Nom_produit, :Description, :Prix, :Code_barre, :Stock, :Img)';
+    $insertProduit = 'INSERT INTO produits(Nom_produit, Description, Prix, Code_barre, Stock, ImgChemin) 
+                      VALUES(:Nom_produit, :Description, :Prix, :Code_barre, :Stock, :Img)';
     $insertionProduit = $mysqlClient->prepare($insertProduit);
     $insertionProduit->execute([
         'Nom_produit' => $postData['nom_produit'],
