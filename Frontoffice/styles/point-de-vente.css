@@ -299,7 +299,7 @@ input  { font-family: var(--font); border: none; outline: none; background: none
 
 .receipt-items {
   flex: 1;
-  height: 500px;
+  height: 400px;
   overflow-y: auto;
   padding: 16px 20px;
 }
